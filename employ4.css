@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+body {
+    margin: 0;
+    padding:0;
+    font-family: 'Montserrat', sans-serif;
+    background: black;
+  }
+  .logo{
+    height: 20px;
+    color: #f2f2f2;
+    font-size: larger;
+    padding-left: 20px;
+    font-weight: bold;
+    
+  }
+  .name-container {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  
+  /* Short name styling */
+  .short-name {
+    display: inline-block;
+    transition: transform 0.5s ease-in-out;
+    color: white;
+    padding: 15px;
+    font-size: 20px;
+    font-weight:100;
+    font-family: "Tac One", sans-serif;
+   
+  }
+  
+  /* Full name, initially hidden off to the side */
+  .full-name {
+    display: inline-block;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    color: white;
+    font-size: 20px;
+    font-weight:100;
+    font-family: "Tac One", sans-serif;
+  }
+  
+  /* On hover, move the short name out and bring the full name in */
+  .name-container:hover .short-name {
+    transform: translateX(-100%);
+  }
+  
+  .name-container:hover .full-name {
+    transform: translateX(0%);
+  }
+  nav
+{ 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+.nav-bar
+{ 
+background-color: black;
+width: 100%;
+height: 50px;
+position: sticky;
+}
+  .heading{
+    margin-top: 10px;
+    flex-direction: column;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+  }
+  #p1{
+    font-size: larger;
+    font-weight:500;
+  }
+  .search-container{
+    background-color: #eee;
+    max-width: 700px;
+    margin: auto;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 25px ;
+    padding-left: 40px;
+    
+
+  #search{
+    width: 240px;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+
+  }
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .job-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-items: center;
+    color:white;
+    border-style:none;
+    height:auto;
+    max-width: auto;
+    margin-top: 1%;
+    
+  }
+  
+  .job-card {
+    width: 25%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px;
+  }
+  
+  .job-card h2 {
+    margin-bottom: 10px;
+  }
+  
+  .job-card p {
+    margin-bottom: 10px;
+  }
+  
+  .job-card a {
+    display: block;
+    background-color: white;
+    color:black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .filter-container{
+    width: 100%;
+
+  height: 6vh;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  border:none;
+  }
+  #location{
+    font-weight: 400;
+    font-size: medium;
+    margin-right:2%;
+    color:purple;
+  }
+  #type{
+    font-weight: 400;
+    font-size: medium;
+    margin-left: 2%;
+    color: purple;
+  }
+  .footer{
+    height: 400px;
+    width: auto;
+
+  }
+  #showmore{
+    width: 200px;
+    height: 30px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);
+    border-radius: 30px;
+    color:white;
+  }
+  #hr{
+    margin-top: 100px;
+    color:whitesmoke;
+  }
+  .log1
+  { 
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius:50px;
+    height: 50px;
+    width: 100px;
+    background-color: rgba(56, 204, 93, 1);
+  }
+  .log1:hover
+  { 
+    color: black;
+    background-color:white;
+    border: none;
+  }
+  .log1 a
+  { 
+    text-decoration: none;
+    color: white;
+
+  }
+  .log1 a:hover
+  { 
+    color: black;
+  }
+  .full-name a
+  { 
+    color: white;
+    text-decoration: none;
+  }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0"/>
+    <link rel="stylesheet" href="list.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="name-container">
+        <span class="short-name">LJ</span>
+        <span class="full-name"><a href="learn1.html">LOCALJOLI</a></span>
+    </div>
+        
+    </div>
+    
+    <div class="container">
+      <form action="" id="register">
+        <div class="main-user-info">
+          <div class="user-input-box">
+            <label for="jobcategory">Job_category</label>
+            <input type="text"
+                    id="jobcategory"
+                    name="jobcategory"
+                    placeholder="Enter the job name"/>
+          </div>
+          <div class="user-input-box">
+            <label for="salary">salary per day</label>
+            <input type="text"
+                    id="salary"
+                    name="salary"
+                    placeholder="Enter salary"/>
+          </div>
+          <div class="user-input-box">
+            <label for="email">Email</label>
+            <input type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Email"/>
+          </div>
+          <div class="user-input-box">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter Phone Number"/>
+          </div>
+          <div class="user-input-box">
+            <label for="location">location</label>
+            <input type="text"
+            id="location"
+            name="location"
+            placeholder="enter the location"/>
+        </div>
+          <div class="user-input-box">
+            <label for="experience">Experience</label>
+            <input type="text"
+                    id="exp"
+                    name="experience"
+                    placeholder="Enter years experience"/>
+          </div>
+
+          <p class="messege" id="messege1"></p>
+
+          <button class="submit" type="submit">submit</button>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script type="module" src="list.js"></script>
+  </body>
+</html>

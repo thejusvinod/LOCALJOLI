@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Listing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        body {
+            background-color: #FEFFD2;
+        }
+        .nav {
+            background-color: #FEFFD2;
+            position: absolute;
+            top: 0;
+            height: 100px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .heading {
+            text-decoration: none;
+            font-size: 40px;
+            margin: auto;
+        }
+        .logo {
+            text-decoration: none;
+            font-size: 20px;
+            position: absolute;
+            margin: 0px 100px 0px 10px;
+        }
+        .box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+        .box input {
+            outline: none;
+            border: none;
+            transition: 0.8s;
+            width: 300px;
+        }
+        #users-list {
+            width: 100%;
+            max-width: 1200px;
+            padding: 50px;
+            position: relative;
+            top: 100px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking 1 fractional unit */
+            grid-gap: 20px;
+            margin: auto;
+        }
+        .job-card {
+            text-transform: capitalize;
+            background-color: #FFA62F;
+            border: solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            grid-column: span 1;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .job-card:hover
+        { 
+            background-color: white;
+            color: black;
+        }
+        .job-card h2 {
+            margin-bottom: 1em;
+        }
+        .job-card p {
+            margin: 2px;
+        }
+        #experience-search {
+            position: absolute;
+            right: 15%;
+            width: 50px;
+            padding: 6px;
+            top: 60%;
+            border: none;
+            outline: none;
+            border-radius: 30px;
+        }
+        #rating {
+            position: absolute;
+            right: 8%;
+            width: 50px;
+            padding: 6px;
+            top: 60%;   
+            border: none;
+            outline: none;
+            border-radius: 30px;
+        }
+        #loc
+        {
+            position: absolute;
+            right: 1%;
+            width: 50px;
+            padding: 6px;
+            top: 60%;   
+            border: none;
+            outline: none;
+            border-radius: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <a href="learn1.html" class="logo">Local Joli</a>
+        <a href="#" class="heading">See Available Workers</a>
+        <div class="box">
+            <input type="text" placeholder="Search..." class="s" id="search-bar">
+            <a href="#">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+        <input type="text" placeholder="exp.." id="experience-search">
+        <input type="text" placeholder="rating.." id="rating">
+        <input type="text" placeholder="loc..." id="loc">
+
+    </div>
+    <div id="users-list"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "localjoli.firebaseapp.com",
+            databaseURL: "https://localjoli-default-rtdb.firebaseio.com",
+            projectId: "localjoli",
+            storageBucket: "localjoli.appspot.com",
+            messagingSenderId: "445146514525",
+            appId: "1:445146514525:web:fef1706c002414c840b9b4"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.database();
+        const usersRef = db.ref("workerinfo");
+
+        let usersData = []; // To store users data for filtering
+
+        // Fetch users data from Firebase
+        usersRef.once("value", (snapshot) => {
+            const users = snapshot.val();
+
+            for (const userId in users) {
+                if (users[userId].available) { // Only consider available users
+                    usersData.push(users[userId]); // Push user data to array
+                }
+            }
+
+            displayUsers(usersData); // Display all available users initially
+        });
+
+        // Function to display users
+        function displayUsers(users) {
+            const usersListDiv = document.getElementById("users-list");
+            usersListDiv.innerHTML = ''; // Clear current users
+            
+            users.forEach(userDetails => {
+                const userDiv = document.createElement("div");
+                userDiv.classList.add("job-card");
+                var rating=0;
+                if(userDetails.n!=0)
+                {
+                    rating=userDetails.rating/userDetails.n;
+
+                }
+
+                userDiv.innerHTML = `
+                    <h2>${userDetails.jobcategory}</h2>
+                    <p>${userDetails.username}</p>
+                    <p>Rating: ${rating}</p>
+                    <p>${userDetails.exp} years of experience</p>
+                    <p>location ${userDetails.location} </p>
+
+
+                `;
+
+                // Add event listener to each job-card
+                userDiv.addEventListener('click', function() {
+                    sessionStorage.setItem("userData1", JSON.stringify(userDetails));
+                    console.log(sessionStorage.getItem("userData1"));
+                     window.location.href = 'worker-profile.html'; // Redirect to worker-profile.html
+                });
+
+                usersListDiv.appendChild(userDiv);
+            });
+        }
+
+        // Search and filter functionality
+        document.getElementById('search-bar').addEventListener('keyup', filterUsers);
+        document.getElementById('experience-search').addEventListener('input', filterUsers); // Listen to input event as well
+        document.getElementById('rating').addEventListener('input', filterUsers);
+        document.getElementById('loc').addEventListener('input', filterUsers);
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const location = document.getElementById('loc').value.toLowerCase();
+            const minExperience = parseInt(document.getElementById('experience-search').value) || 0; // Default to 0 if no input
+            const minRating = parseInt(document.getElementById('rating').value) || 0; // Default to 0 if no input
+
+            const filteredUsers = usersData.filter(user => {
+                return user.jobcategory.toLowerCase().includes(searchTerm) &&user.location.toLowerCase().includes(location) && parseInt(user.exp) >= minExperience && parseInt(user.rating) >= minRating;
+            });
+
+            displayUsers(filteredUsers);
+        }
+    </script>
+</body>
+</html>

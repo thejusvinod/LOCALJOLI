@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Employer_Register</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0"/>
+    <link rel="stylesheet" href="style_hire.css" />
+  </head>
+  <body>
+    <div class="header">
+        <div class="name-container">
+        <span class="short-name">LJ</span>
+        <span class="full-name"><a href="learn1.html">LOCALJOLI</a></span>
+    </div>
+        <div class="buttons">
+            <button id="login-button">Login</button>
+            <button id="help-button">help</button>
+        </div>
+    </div>
+    
+    <div class="container">
+      <h1 class="form-title">Registration</h1>
+      <form action="" id="register">
+        <div class="main-user-info">
+          <div class="user-input-box">
+            <label for="fullName">Full Name</label>
+            <input type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Enter Full Name"/>
+          </div>
+          <div class="user-input-box">
+            <label for="username">Username</label>
+            <input type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter Username"/>
+          </div>
+          <div class="user-input-box">
+            <label for="email">Email</label>
+            <input type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Email"/>
+          </div>
+          <div class="user-input-box">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter Phone Number"/>
+          </div>
+          <div class="user-input-box">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">female</option>
+                <option value="Dont want to disclose">Dont want to disclose</option>
+
+            </select>
+        </div>
+        <div class="user-input-box">
+            <label for="dob">DOB</label>
+            <input type="date"
+                    id="dob"
+                    name="dob"/>
+          </div>
+          <div class="user-input-box">
+            <label for="password">Password</label>
+            <input type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter Password"/>
+          </div>
+          <div class="user-input-box">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"/>
+          </div>
+          <p class="messege" id="messege1"></p>
+
+         <a href="login2.html"> <button class="submit" type="submit">submit</button></a>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script type="module" src="script_hire.js"></script>
+  </body>
+</html> 

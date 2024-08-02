@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>localjoli - Profile Page</title>
+	<link rel="stylesheet" type="text/css" href="profile.css">
+</head>
+<body>
+	<header>
+		<a href="learn1.html"><h1 class="logo">localjoli</h1></a>
+		<p class="page-title">Profile Page</p>
+	</header>
+	
+	<main>
+		<h2 class="section-title">Profile</h2>
+		<div class="profile-info">
+			<img for="first" class="profile-image" src="image1.jpg" alt="Profile Image" id="profile-image">
+			<input type="file" id="first" style="display:none; visibility: none;">
+			
+			<div class="user-info">
+				<h3 class="user-name" id="name">John Doe</h3>
+				<p class="user-profession" id="job">Software Engineer</p>
+				<p class="user-profession" id="exp">5 years of experience</p>
+				<p class="user-status" id="status">Current status:Available</p>
+				
+			</div>
+		</div>
+        <p class="current-rating" id="rating-text">Current rating: 4.7</p>
+		<div class="rating">
+            
+			<span class="star" data-rating="1">★</span>
+			<span class="star" data-rating="2">★</span>
+			<span class="star" data-rating="3">★</span>
+			<span class="star" data-rating="4">★</span>
+			<span class="star" data-rating="5">★</span>
+			
+		</div>
+		<h2 class="section-title">Contact Information</h2>
+		<p class="contact-info" id="phone"><strong>Phone:</strong> (123) 456-7890</p>
+		<p class="contact-info" id="email"><strong>Email:</strong> john.doe@example.com</p>
+		<h2 class="section-title">Current Status</h2>
+		<button class="status-button available" id="avail">Available</button>
+		<button class="status-button at-work" id="Atwork">At Work</button>
+		<p id="status-message"></p>
+		<button class="logout-button" id="logout">Logout</button>
+	</main>
+	
+	<script type="module" src="profile_new.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    
+</body>
+</html>

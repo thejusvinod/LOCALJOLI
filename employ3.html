@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Job Search Page</title>
+	<link rel="stylesheet" type="text/css" href="employ4.css">
+</head>
+<body>
+	<header>
+        <nav class="nav-bar">
+        <div class="name-container">
+            <span class="short-name">LJ</span>
+            <span class="full-name"><a href="learn1.html">LOCALJOLI</a></span>
+           </div>
+           <button class="log1"><a href="login.html">login</a></button>
+        <button class="log1"><a href="login.html">register</a></button>
+    </nav>
+    <div class="heading">
+      <h1>Your ideal job awaits, start the search</h1>
+      <p id="p1">Get latest job openings that best suits you </p>
+    </div>
+		<div class="search-container">
+			<input type="text" id="search" placeholder="Search for jobs...">
+			<i class="fa-solid fa-magnifying-glass"></i>
+		</div>
+		<div class="filter-container">
+			<label id="location"for="location">Location:</label>
+			<select id="location">
+				<option value="">All</option>
+				<option value="NY">Kollam</option>
+				<option value="LA">karunagapally</option>
+				<option value="CHI">Alappuzha</option>
+			</select>
+			<label id="type" for="type">Type:</label>
+			<select id="type">
+				<option value="">All</option>
+				<option value="fulltime">Full-time</option>
+				<option value="parttime">Part-time</option>
+				<option value="internship">Internship</option>
+			</select>
+		</div>
+	</header>
+	<div class="job-cards">
+		<div class="job-card">
+			<h2>Electrician</h2>
+			<p>Salary-1500/day <br>Location-mavelikara</p>
+			<a href="#">Hire Now</a>
+		</div>
+		<div class="job-card">
+			<h2>Plumber</h2>
+			<p>Salary-2500/day <br>Location-paripally</p>
+			<a href="#">Hire Now</a>
+		</div>
+		<div class="job-card">
+			<h2>Gardener</h2>
+			<p>Salary-3500/day <br>Location-oachira</p>
+			<a href="#">Hire Now</a>
+		</div>
+		<div class="job-card">
+			<h2>Home Nurse</h2>
+			<p>Salary-4000/day <br> Location-kayamkulam</p>
+			<a href="#">Hire Now</a>
+		</div>
+		<div class="job-card">
+			<h2>House maid</h2>
+			<p>Salary-3500/day <br> Location-haripad</p>
+			<a href="#">Hire Now</a>
+		</div>
+	</div>
+	<div class="load">
+		<div id="showmore">Load more...</div>
+	</div>
+	<hr id="hr">
+	<footer class="footer">
+
+	</footer>
+	<script src="script.js"></script>
+</body>
+</html>

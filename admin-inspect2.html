@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        body {
+            background-color: white;
+        }
+        .nav {
+            background-color: beige;
+            position: absolute;
+            top: 0;
+            height: 100px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .heading {
+            text-decoration: none;
+            font-size: 40px;
+            margin: auto;
+        }
+        .logo {
+            text-decoration: none;
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box input {
+            outline: none;
+            border: none;
+            transition: 0.8s;
+            width: 300px;
+        }
+        #users-list {
+            width: 100%;
+            max-width: 1200px;
+            padding: 50px;
+            position: relative;
+            top: 100px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking 1 fractional unit */
+            grid-gap: 20px;
+            margin: auto;
+        }
+        .job-card {
+            text-transform: capitalize;
+            background-color: beige;
+            border: solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            grid-column: span 1;
+        }
+        .job-card h2 {
+            margin-bottom: 1em;
+        }
+        .job-card p {
+            margin: 2px;
+        }
+        #experience-search {
+            position: absolute;
+            right: 15%;
+            width: 50px;
+            padding: 6px;
+            top: 60%;
+            border: none;
+            outline: none;
+            border-radius: 30px;
+        }
+        #rating {
+            position: absolute;
+            right: 8%;
+            width: 50px;
+            padding: 6px;
+            top: 60%;
+            border: none;
+            outline: none;
+            border-radius: 30px;
+        }
+        .filter-select {
+            position: absolute;
+            background-color: beige;
+            left: 90%;
+            transform: translateX(-50%);
+            top: 110px;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <a href="main.html" class="logo">Local Joli</a>
+        <a href="#" class="heading">Admin panels</a>
+        <div class="box">
+            <input type="text" placeholder="Search..." class="s" id="search-bar">
+            <a href="#">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+        <input type="text" placeholder="exp.." id="experience-search">
+        <input type="text" placeholder="rating.." id="rating">
+        <select id="filter-select" class="filter-select">
+            <option value="users">Users</option>
+            <option value="jobs">Listed Jobs</option>
+        </select>
+    </div>
+    <div id="users-list"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "localjoli.firebaseapp.com",
+            databaseURL: "https://localjoli-default-rtdb.firebaseio.com",
+            projectId: "localjoli",
+            storageBucket: "localjoli.appspot.com",
+            appId: "1:445146514525:web:fef1706c002414c840b9b4"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.database();
+        const usersRef = db.ref("workerinfo");
+        const jobsRef = db.ref("joblisted");
+
+        let usersData = []; // To store users data for filtering
+        let jobsData = []; // To store jobs data
+
+        // Fetch users data from Firebase
+        usersRef.once("value", (snapshot) => {
+            const users = snapshot.val();
+
+            for (const userId in users) {
+                if (users[userId].available) { // Only consider available users
+                    usersData.push(users[userId]); // Push user data to array
+                }
+            }
+
+            displayUsers(usersData); // Display all available users initially
+        });
+
+        // Fetch jobs data from Firebase
+        jobsRef.once("value", (snapshot) => {
+            const jobs = snapshot.val();
+
+            for (const jobId in jobs) {
+                jobsData.push(jobs[jobId]); // Push job data to array
+            }
+        });
+
+        // Function to display users
+        function displayUsers(users) {
+            const usersListDiv = document.getElementById("users-list");
+            usersListDiv.innerHTML = ''; // Clear current users
+            
+            users.forEach(userDetails => {
+                const userDiv = document.createElement("div");
+                userDiv.classList.add("job-card");
+
+                userDiv.innerHTML = `
+                    <h2>${userDetails.jobcategory}</h2>
+                    <p>${userDetails.username}</p>
+                    <p>Rating: ${userDetails.rating}</p>
+                    <p>${userDetails.exp} years of experience</p>
+                    <p>Last login: ${userDetails.lastlogin}</p>
+                    <button class="remove-user" data-user-id="${userDetails.userid}">Remove</button>
+                `;
+
+                // Add event listener to each job-card
+                userDiv.addEventListener('click', function() {
+                    sessionStorage.setItem("userData1", JSON.stringify(userDetails));
+                    console.log(sessionStorage.getItem("userData1"));
+                    window.location.href = 'worker-profile.html'; // Redirect to worker-profile.html
+                });
+
+                usersListDiv.appendChild(userDiv);
+            });
+
+            // Attach remove event listeners
+            document.querySelectorAll('.remove-user').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent triggering the parent click event
+                    const userId = e.target.getAttribute('data-user-id');
+                    removeUser(userId);
+                });
+            });
+        }
+
+        // Function to display jobs
+        function displayJobs(jobs) {
+            const usersListDiv = document.getElementById("users-list");
+            usersListDiv.innerHTML = ''; // Clear current users
+            
+            jobs.forEach(jobDetails => {
+                const jobDiv = document.createElement("div");
+                jobDiv.classList.add("job-card");
+
+                jobDiv.innerHTML = `
+                    <h2>${jobDetails.job}</h2>
+                    <p>Location: ${jobDetails.loc}</p>
+                    <p>Phone: ${jobDetails.phone}</p>
+                    <p>Salary: ${jobDetails.salary}</p>
+                    <p>Experience required: ${jobDetails.exp} years</p>
+                    <button class="remove-job" data-job-id="${jobDetails.jobid}">Remove</button>
+                `;
+
+                usersListDiv.appendChild(jobDiv);
+            });
+
+            // Attach remove event listeners
+            document.querySelectorAll('.remove-job').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent triggering the parent click event
+                    const jobId = e.target.getAttribute('data-job-id');
+                    removeJob(jobId);
+                });
+            });
+        }
+
+        // Function to remove user from both Firebase Realtime Database and Firebase Authentication
+        function removeUser(userId) {
+            // Remove the user from Firebase Realtime Database
+            usersRef.child(userId).remove()
+                .then(() => {
+                    console.log('User successfully removed from database');
+                    // Remove the user from Firebase Authentication
+                    firebase.auth().currentUser.delete()
+                        .then(() => {
+                            console.log('User successfully removed from authentication');
+                            location.reload(); // Reload the page to update the list
+                        })
+                        .catch(error => {
+                            console.error('Error removing user from authentication:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error removing user from database:', error);
+                });
+        }
+
+        // Function to remove job from Firebase Realtime Database
+        function removeJob(jobId) {
+            // Remove the job from Firebase Realtime Database
+            jobsRef.child(jobId).remove()
+                .then(() => {
+                    console.log('Job successfully removed from database');
+                    location.reload(); // Reload the page to update the list
+                })
+                .catch(error => {
+                    console.error('Error removing job from database:', error);
+                });
+        }
+
+        // Event listener for filter select change
+        document.getElementById('filter-select').addEventListener('change', function() {
+            if (this.value === 'users') {
+                displayUsers(usersData);
+            } else if (this.value === 'jobs') {
+                displayJobs(jobsData);
+            }
+        });
+        
+        // Search and filter functionality
+        document.getElementById('search-bar').addEventListener('keyup', filterUsers);
+        document.getElementById('experience-search').addEventListener('input', filterUsers); // Listen to input event as well
+        document.getElementById('rating').addEventListener('input', filterUsers);
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const minExperience = parseInt(document.getElementById('experience-search').value) || 0;
+            const minRating = parseInt(document.getElementById('rating').value) || 0;
+
+            const filteredUsers = usersData.filter(user => {
+                const matchesSearchTerm = user.username.toLowerCase().includes(searchTerm) || user.jobcategory.toLowerCase().includes(searchTerm);
+                const meetsExperience = user.exp >= minExperience;
+                const meetsRating = user.rating >= minRating;
+                return matchesSearchTerm && meetsExperience && meetsRating;
+            });
+
+            displayUsers(filteredUsers);
+        }
+    </script>
+</body>
+</html>

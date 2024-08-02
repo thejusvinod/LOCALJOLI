@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>localjoli - Profile Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		
+		header {
+			background-color: #333;
+			color: #fff;
+			display: flex;
+			justify-content: space-between;
+			padding: 1rem;
+		}
+		
+		.logo {
+			margin: 0;
+		}
+		
+		.page-title {
+			align-self: flex-end;
+			margin: 0;
+			padding-right: 1rem;
+		}
+		
+		.section-title {
+			background-color: #333;
+			color: #fff;
+			font-size: 1.5rem;
+			margin: 0;
+			padding: 1rem;
+		}
+		
+		.profile-info {
+			display: flex;
+			justify-content: space-between;
+			padding: 1rem;
+		}
+		
+		.profile-image {
+			height: 100px;
+			width: 100px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+		
+		.user-info {
+			margin-left: 2rem;
+		}
+		
+		.user-name {
+			margin: 0;
+		}
+		
+		.user-profession {
+			font-weight: lighter;
+			font-size: 0.9rem;
+			margin: 0.5rem 0;
+		}
+		
+		.user-status {
+			margin: 0;
+		}
+		.button {
+			opacity: 0.5; /* Default opacity */
+			transition: opacity 0.3s;
+		}
+		.active {
+			opacity: 1; /* Active button opacity */
+		}
+		
+		.status-button {
+			background-color: #333;
+			border: none;
+			color: #fff;
+			padding: 0.5rem 1rem;
+			margin: 0.5rem 0;
+			opacity: 0.5;
+			cursor: pointer;
+			transition: opacity 0.3s ease;
+		}
+		
+		.status-button:hover {
+			opacity: 1;
+		}
+		
+		.status-button.active {
+			opacity: 1;
+		}
+		
+		.rating {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 1rem 0;
+		}
+		
+		.contact-info {
+			margin: 1rem 0;
+		}
+		.current-rating
+		{
+			text-align: center;
+		}
+		.box
+		{
+			
+			box-sizing: border-box;
+			padding: 30px;
+			width: 100%;
+			height: 130px;
+			text-align: center;
+			margin: 30px;
+		}
+
+		.stars{
+			font-size: 33px;
+			opacity: 0.2;
+		}
+		.selected
+        {
+            color: orange;
+        }
+		.image{
+			position:absolute;
+			left:10px;
+			
+		}
+		#phone{
+			
+			position: relative;
+			z-index: 1;
+			opacity: 0
+			;
+		}
+
+	</style>
+</head>
+<body>
+	<header>
+		<a href="learn1.html"><h1 class="logo">localjoli</h1></a>
+		<p class="page-title">Profile Page</p>
+	</header>
+	
+	<main>
+		<h2 class="section-title">Profile</h2>
+		<div class="profile-info">
+			<img for="first" class="profile-image" src="image1.jpg" alt="Profile Image" id="profile-image">
+			<input type="file" id="first" style="display:none; visibility: none;">
+			
+			<div class="user-info">
+				<h3 class="user-name" id="name">John Doe</h3>
+				<p class="user-profession" id="job">Software Engineer</p>
+				<p class="user-profession" id="exp">5 years of experience</p>
+				<p class="user-status" id="status">Current status:Available</p>
+				
+			</div>
+		</div>
+        
+		<div class="box">
+			<p class="current-rating" id="rating-text">Current rating: 4.7</p>
+			<p>Rate this user..</p>
+				<div class="stars">
+					<span class="fa fa-star stars1" data-value="1" ></span>
+                    <span class="fa fa-star stars1" data-value="2"></span>
+                    <span class="fa fa-star stars1" data-value="3"></span>
+                    <span class="fa fa-star stars1" data-value="4"></span>
+                    <span class="fa fa-star stars1" data-value="5"></span>
+				</div>
+		</div>
+		<h2 class="section-title">Contact Information</h2>
+		<img src="icons8-whatsapp-48.png" alt="" class="image">
+
+		<p class="contact-info" id="phone"><strong>Phone:</strong> </p>
+		<p class="contact-info" id="email"><strong>Email:</strong> </p>
+		
+	</main>
+	
+	<script type="module" src="worker-profile.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+</body>
+</html>

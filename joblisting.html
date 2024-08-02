@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>All Jobs Listed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      color: black;
+    }
+    body {
+      background-color: #FEFFD2;
+    }
+    .nav {
+      background-color: #FEFFD2;
+      position: absolute;
+      top: 0;
+      height: 100px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .heading {
+      text-decoration: none;
+      font-size: 40px;
+      margin: auto;
+    }
+    .logo {
+      text-decoration: none;
+      font-size: 20px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .box {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box input {
+      outline: none;
+      border: none;
+      transition: 0.8s;
+      width: 300px;
+    }
+    #jobs-list {
+      width: 100%;
+      max-width: 1200px;
+      padding: 50px;
+      position: relative;
+      top: 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking 1 fractional unit */
+      grid-gap: 20px;
+      margin: auto;
+    }
+    .job-card {
+      text-transform: capitalize;
+      background-color: #FFA62F;
+      border: solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      grid-column: span 1;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+    .job-card:hover
+    { 
+      background-color: white;
+      color: black;
+    }
+    .job-card h2 {
+      margin-bottom: 1em;
+    }
+    .job-card p {
+      margin: 2px;
+    }
+    #pay {
+      position: absolute;
+      right: 15%;
+      width: 50px;
+      padding: 6px;
+      top: 60%;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+    } 
+    #loc {
+      position: absolute;
+      right: 10%;
+      width: 50px;
+      padding: 6px;
+      top: 60%;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+    }
+    .name-container {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+/* Short name styling */
+.short-name {
+  display: inline-block;
+  transition: transform 0.5s ease-in-out;
+  color: black;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 100;
+  font-family: "Tac One", sans-serif;
+}
+
+/* Full name, initially hidden off to the side */
+.full-name {
+  display: inline-block;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
+  color: black;
+  font-size: 20px;
+  font-weight: 100;
+  font-family: "Tac One", sans-serif;
+}
+.full-name a
+{ 
+  font-style: none;
+  text-decoration: none;
+}
+
+/* On hover, move the short name out and bring the full name in */
+.name-container:hover .short-name {
+  transform: translateX(-100%);
+}
+
+.name-container:hover .full-name {
+  transform: translateX(0%);
+}
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <div class="name-container">
+      <span class="short-name">LJ</span>
+      <span class="full-name"><a href="learn1.html">LOCALJOLI</a></span>
+  </div>
+    <a href="#" class="heading"> Available Jobs</a>
+    <div class="box">
+      <input type="text" placeholder="Search for jobs...." class="s" id="search-bar">
+      <a href="#">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+    <input type="text" placeholder="pay.." id="pay">
+    <input type="text" placeholder="loc.." id="loc">
+  </div>
+  
+  <div id="jobs-list">
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyD13Q2KObzuB3IM9LvKgeAaQk6TaSiJzL0",
+      authDomain: "localjoli.firebaseapp.com",
+      databaseURL: "https://localjoli-default-rtdb.firebaseio.com",
+      projectId: "localjoli",
+      storageBucket: "localjoli.appspot.com",
+      messagingSenderId: "445146514525",
+      appId: "1:445146514525:web:fef1706c002414c840b9b4"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const jobsRef = db.ref("joblisted");
+
+    let jobsData = []; // To store jobs data for filtering
+
+    // Fetch jobs data from Firebase
+    jobsRef.once("value", (snapshot) => {
+      const jobs = snapshot.val();
+      const jobsListDiv = document.getElementById("jobs-list");
+
+      for (const jobId in jobs) {
+        jobsData.push(jobs[jobId]); // Push job data to array
+      }
+
+      displayJobs(jobsData); // Display all jobs initially
+    });
+
+    // Function to display jobs
+    function displayJobs(jobs) {
+      const jobsListDiv = document.getElementById("jobs-list");
+      jobsListDiv.innerHTML = ''; // Clear current jobs
+
+      jobs.forEach(jobDetails => {
+        const jobDiv = document.createElement("div");
+        jobDiv.classList.add("job-card");
+
+        jobDiv.innerHTML = `
+          <h2>Need ${jobDetails.job}</h2>
+          <p>Minimum ${jobDetails.exp} years of experience</p>
+          <p>Location ${jobDetails.loc}</p>
+          <p>Pay per day ${jobDetails.salary}</p>
+          <p>If you are interested, please contact ${jobDetails.phone}</p>
+          <a aria-label="Chat on WhatsApp" href="https://wa.me/${jobDetails.phone}"> <img alt="Chat on WhatsApp" src="WhatsAppButtonGreenLarge.svg" />
+<a />
+        
+          
+        `;
+        jobsListDiv.appendChild(jobDiv);
+      });
+    }
+
+    // Add event listeners for filtering
+    document.getElementById("search-bar").addEventListener("input", filterJobs);
+    document.getElementById("pay").addEventListener("input", filterJobs);
+    document.getElementById("loc").addEventListener("input", filterJobs);
+
+    function filterJobs() {
+      const searchBarValue = document.getElementById("search-bar").value.toLowerCase();
+      const payValue = parseInt(document.getElementById("pay").value);
+      const locValue = document.getElementById("loc").value.toLowerCase();
+
+      const filteredJobs = jobsData.filter(job => {
+        const jobTitleMatch = job.job.toLowerCase().includes(searchBarValue);
+        const payMatch = isNaN(payValue) || parseInt(job.salary) >= payValue;
+        const locMatch = locValue ? job.loc.toLowerCase().includes(locValue) : true;
+
+        return jobTitleMatch && payMatch && locMatch;
+      });
+
+      displayJobs(filteredJobs);
+    }
+  </script>
+</body>
+</html>

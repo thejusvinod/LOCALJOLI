@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>All Users Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+  </head>
+  <body>
+    <h1>All Users Details</h1>
+    <div id="users-list"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+            apiKey: "AIzaSyD13Q2KObzuB3IM9LvKgeAaQk6TaSiJzL0",
+            authDomain: "localjoli.firebaseapp.com",
+            databaseURL: "https://localjoli-default-rtdb.firebaseio.com",
+            projectId: "localjoli",
+            storageBucket: "localjoli.appspot.com",
+            messagingSenderId: "445146514525",
+            appId: "1:445146514525:web:fef1706c002414c840b9b4"
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.database();
+      const usersRef = db.ref("employerinfo");
+
+      // Fetch users data from Firebase
+      usersRef.once("value", (snapshot) => {
+        const users = snapshot.val();
+        const usersListDiv = document.getElementById("users-list");
+
+        // Iterate over each user and create HTML elements to display their details
+        for (const userId in users) {
+          const userDetails = users[userId];
+          const userDiv = document.createElement("div");
+
+          userDiv.innerHTML = `
+            <h2>${userDetails.fullname}</h2>
+            <p>Username: ${userDetails.username}</p>
+            <p>Email: ${userDetails.email}</p>
+            <p>Phone Number: ${userDetails.phoneNumber}</p>
+            <p>Gender: ${userDetails.gender}</p>
+            <p>DOB: ${userDetails.dob}</p>
+          `;
+
+          usersListDiv.appendChild(userDiv);
+        }
+      });
+    </script>
+  </body>
+</html>

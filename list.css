@@ -1,0 +1,218 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background: black;
+    font-family: sans-serif;
+}
+.name-container {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  
+  /* Short name styling */
+  .short-name {
+    display: inline-block;
+    transition: transform 0.5s ease-in-out;
+    color: white;
+    padding: 15px;
+    font-size: 20px;
+    font-weight:100;
+    font-family: "Tac One", sans-serif;
+   
+  }
+  
+  /* Full name, initially hidden off to the side */
+  .full-name {
+    display: inline-block;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    color: white;
+    font-size: 20px;
+    font-weight:100;
+    font-family: "Tac One", sans-serif;
+  }
+  
+  /* On hover, move the short name out and bring the full name in */
+  .name-container:hover .short-name {
+    transform: translateX(-100%);
+  }
+  
+  .name-container:hover .full-name {
+    transform: translateX(0%);
+  }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.logo {
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: white;
+}
+
+.header-buttons {
+    display: flex;
+
+}
+#help-button, #login-button {
+    padding: 5px 10px;
+    background-color:rgba(56, 204, 93, 1);
+    width: 75px;
+    height: 30px;
+    color:black;
+    border: none;
+    cursor: pointer;
+    margin:30px 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s,color 0.3s;
+}
+
+#help-button:hover, #login-button:hover
+{
+    background: white;
+}
+
+#help-button:active, #login-button:active {
+    background: rgba(56, 204, 93, 0.7);
+    color: rgb(255, 255, 255);
+}
+.messege
+{
+    color: white;
+    margin-left:53%;
+}
+
+
+
+
+
+
+
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+}
+
+.container{
+
+    width: 100%;
+    max-width: 900px;
+    background: black;
+    padding: 28px;
+    margin-top: 200px;
+    border-radius: 10px;
+    /box-shadow: inset -2px 2px 2px white;/
+}
+
+
+
+.main-user-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.user-input-box:nth-child(2n){
+    justify-content: end;
+}
+
+.user-input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+.user-input-box label{
+    width: 95%;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px 0;
+}
+
+::placeholder {
+    color:white;
+    
+}
+
+.user-input-box input{
+    height: 40px;
+    width: 95%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+    background:rgb(68, 67, 67);
+    color: white;
+}   
+
+.submit{
+    margin-top: 40px;
+}
+select{
+    height: 40px;
+    width: 95%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+    color: white;
+    background:rgb(68, 67, 67);
+
+}
+.submit{
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin:auto;
+    margin-top: 40px;
+    border-radius:10px;
+    border:0;
+    width: 15%;
+    font-size: 20px;
+    height: 30px;
+    border:0;
+    margin-left: 80%;
+    color: rgb(209, 209, 209);
+    background: rgba(56, 204, 93, 0.7);
+    transition:background-color 0.3s,color 0.3s ;
+}
+.submit:hover{
+    background: rgba(56, 204, 93, 1);
+    
+
+}
+
+.submit:active{
+    background: rgba(56, 204, 93, 0.7);
+    color: rgb(255, 255, 255);
+}
+.full-name a
+  { 
+    color: white;
+    text-decoration: none;
+  }
+  .buttons a
+  { 
+    color: black;
+    text-decoration: none;
+    background: rgba(56, 204, 93, 0.7);
+  }

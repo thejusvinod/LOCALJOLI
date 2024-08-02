@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>localjoli - Profile Page</title>
+	<link rel="stylesheet" type="text/css" href="profile_hire.css">
+</head>
+<body>
+	<header>
+		<a href="learn1.html" class="logo">
+			LocalJoli
+			
+		</a>
+		<p class="page-title">Profile Page</p>
+	</header>
+	
+	<main>
+		<h2 class="section-title">Profile</h2>
+		<div class="profile-info">
+			<img for="first" class="profile-image" src="image1.jpg" alt="Profile Image" id="profile-image">
+			<input type="file" id="first" style="display:none; visibility: none;">
+			
+			<div class="user-info">
+				<h3 class="user-name" id="name">John Doe</h3>
+				<p class="user-profession" id="age">location:Kollam</p>
+			</div>
+		</div>
+        
+		<h2 class="section-title">Contact Information</h2>
+		<p class="contact-info" id="phone"><strong>Phone:</strong> (123) 456-7890</p>
+		<p class="contact-info" id="email"><strong>Email:</strong> john.doe@example.com</p>
+		<h2 class="section-title">Listed jobs</h2>
+		<div id="listed"></div>
+		<a href="list.html"><button class="status-button available" id="proceed">List a job</button></a>
+		
+		<button class="logout-button" id="logout">Logout</button>
+	</main>
+	
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+	<script type="module">
+import { initializeApp} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getStorage,ref as sref,uploadBytesResumable,getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD13Q2KObzuB3IM9LvKgeAaQk6TaSiJzL0",
+            authDomain: "localjoli.firebaseapp.com",
+            databaseURL: "https://localjoli-default-rtdb.firebaseio.com",
+            projectId: "localjoli",
+            storageBucket: "localjoli.appspot.com",
+            messagingSenderId: "445146514525",
+            appId: "1:445146514525:web:fef1706c002414c840b9b4"
+        };
+initializeApp(firebaseConfig);
+console.log("entered")
+var proceed = document.getElementById('proceed');
+
+
+const userData = JSON.parse(localStorage.getItem("currentUsere"));
+const userid = JSON.parse(localStorage.getItem("currentUserid"));
+
+console.log(userid);
+console.log(userData);
+if(userData==null)
+  {
+    localStorage.removeItem("currentUsere");
+  localStorage.removeItem("currentUserid");
+  window.location.href="login2.html";
+
+  }
+document.getElementById("name").innerHTML=userData.fullname;
+document.getElementById("phone").innerHTML=`<strong>Phone:</strong> ${userData.phoneNumber}`;
+document.getElementById("email").innerHTML=`<strong>Phone:</strong> ${userData.email}`;
+
+
+
+document.getElementById("profile-image").addEventListener("click", function() {
+   document.getElementById("first").click();
+});
+
+proceed.addEventListener("click",()=>{
+  window.location.href='list.html';
+})
+
+document.getElementById("logout").addEventListener("click",()=>{
+  localStorage.removeItem("currentUsere");
+  localStorage.removeItem("currentUserid");
+  window.location.href="login2.html";
+
+})
+
+	</script>
+</body>
+</html>

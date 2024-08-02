@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="logstyle.css">
+    <title>Employer signin</title>
+</head>
+
+<body>
+   <nav class="nav-bar">
+    <div class="name-container">
+        <span class="short-name">LJ</span>
+        <span class="full-name"><a href="learn1.html">LOCALJOLI</a></span>
+    </div>
+   </nav>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form id="mainform">
+                <h1>Employer sign-in</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <span>or use your email password</span>
+                <input type="email" placeholder="Email" id="email">
+                <input type="password" placeholder="Password" id="pass">
+                <a href="#">Forget Your Password?</a>
+                <button type="submit" id="btn">SIGN IN</button>
+                <button><a href="main_hire.html">SIGN UP</a></button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Are you a worker! </p>
+                  <a href="login2.html"><button class="hidden" id="register">CLick to Continue</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="login.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    
+</body>
+
+</html>
